@@ -36,15 +36,19 @@ rm -rf %{buildroot}
 %make_install
 rm -rf $RPM_BUILD_ROOT/usr/share/man
 
+#license
+mkdir -p %{buildroot}/%{_datadir}/license
+cp -rf %{_builddir}/%{name}-%{version}/COPYING %{buildroot}/%{_datadir}/license/%{name}
+
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 
 %files
 %manifest libbmp.manifest
-%license COPYING
 %defattr(-,root,root,-)
 %{_libdir}/libbmp*.so.*
 %{_bindir}/*
+%{_datadir}/license/%{name}
 
 %files devel
 %manifest libbmp.manifest
